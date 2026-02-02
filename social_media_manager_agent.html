@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Social Media Manager Agent</title>
+
+    <!-- ===== CSS ===== -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1d2671, #c33764);
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 700px;
+            margin: 50px auto;
+            background: rgba(0, 0, 0, 0.35);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        p {
+            text-align: center;
+            color: #ddd;
+        }
+
+        textarea {
+            width: 100%;
+            height: 130px;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            margin-top: 15px;
+            resize: none;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            background: #00f2fe;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #4facfe;
+        }
+
+        .output {
+            margin-top: 25px;
+        }
+
+        .box {
+            background: #111;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .highlight {
+            font-size: 20px;
+            font-weight: bold;
+            color: #00ffcc;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🤖 Social Media Manager Agent</h1>
+    <p>Emotional Momentum Engine Demo</p>
+
+    <textarea id="comments" placeholder="Enter audience comments (one per line)&#10;Example:&#10;Great post!&#10;I am confused&#10;Please explain"></textarea>
+
+    <button onclick="analyze()">Analyze Audience</button>
+
+    <div class="output">
+        <h3>📊 Emotion Analysis</h3>
+        <div class="box" id="emotionResult"></div>
+
+        <h3>📌 Suggested Next Post</h3>
+        <div class="highlight" id="postResult"></div>
+    </div>
+</div>
+
+<!-- ===== JavaScript ===== -->
+<script>
+    function analyze() {
+        const input = document.getElementById("comments").value;
+        const comments = input.split("\n").filter(c => c.trim() !== "");
+
+        let emotions = {
+            positive: 0,
+            confused: 0,
+            negative: 0,
+            neutral: 0
+        };
+
+        // Emotion Analyzer
+        comments.forEach(comment => {
+            const c = comment.toLowerCase();
+
+            if (c.includes("good") || c.includes("great") || c.includes("love") || c.includes("awesome")) {
+                emotions.positive++;
+            } 
+            else if (c.includes("confused") || c.includes("explain") || c.includes("don't understand")) {
+                emotions.confused++;
+            } 
+            else if (c.includes("bad") || c.includes("hate") || c.includes("worst")) {
+                emotions.negative++;
+            } 
+            else {
+                emotions.neutral++;
+            }
+        });
+
+        // Emotional Momentum Engine
+        let suggestedPost = "";
+
+        if (emotions.confused >= 2) {
+            suggestedPost = "Educational Post 📘";
+        } 
+        else if (emotions.negative >= 2) {
+            suggestedPost = "Motivational Post 💪";
+        } 
+        else if (emotions.positive >= 2) {
+            suggestedPost = "Promotional Post 🚀";
+        } 
+        else {
+            suggestedPost = "Engagement Post 💬";
+        }
+
+        // Display results
+        document.getElementById("emotionResult").innerHTML =
+            `Positive: ${emotions.positive}<br>
+             Confused: ${emotions.confused}<br>
+             Negative: ${emotions.negative}<br>
+             Neutral: ${emotions.neutral}`;
+
+        document.getElementById("postResult").textContent = suggestedPost;
+    }
+</script>
+
+</body>
+</html>
